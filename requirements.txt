@@ -1,2 +1,5 @@
 # Google Data API for extracting comments
 google-api-python-client
+
+# Load environment variables
+dotenv
