@@ -41,9 +41,3 @@ def get_comments(video_id):
 
     # return the list of comments
     return comments
-
-#test
-video_id = "th5_9woFJmk"
-test_comments = get_comments(video_id, 2)
-
-print(test_comments)
