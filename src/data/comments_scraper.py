@@ -12,7 +12,7 @@ youtube = build("youtube", "v3", developerKey=api_key)
 # define the function retrieving the comments
 def get_comments(video_id):
     """
-    Returns a list of comments for a video.
+    Returns a list of comments for a video
     :param video_id: the ID of the video (string)
     :return: a list of comments as strings
     """
