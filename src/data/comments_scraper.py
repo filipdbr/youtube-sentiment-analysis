@@ -1,6 +1,9 @@
 import os
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
+from typing import Any, Dict
+
+from urllib3 import request
 
 # load environment variables
 load_dotenv()
@@ -10,7 +13,7 @@ api_key = os.getenv("api_key")
 youtube = build("youtube", "v3", developerKey=api_key)
 
 # define the function retrieving the comments
-def get_comments(video_id):
+def get_comments(video_id: str) -> list[dict]:
     """
     Returns a list of comments for a video
     :param video_id: the ID of the video (string)
@@ -41,3 +44,32 @@ def get_comments(video_id):
 
     # return the list of comments
     return comments
+
+# # I could get metadata in the same function while getting comments,
+# but to adhere to the single responsibility principle and improve testing and mintenance, I'm doing it in a separate function.
+def get_metadata(video_id: str) -> Dict[str, Any]:
+    """
+    Returns metadata for a video
+    :param video_id: the ID of the video (string)
+    :return: metadata as a dictionary
+    """
+    # make a request to fetch metadata
+    request = youtube.videos().list(
+        part="snippet, statistics",     # fetch snipped and statistics
+        id=video_id,                    # video id provided by the user
+    ).execute()                         # execute the request
+
+    # take the first element from items
+    response = request["items"][0]
+
+    # store the metadata
+    metadata = {
+        "title" : response["snippet"]["title"],
+        "description" : response["snippet"]["description"],
+        "channel": response["snippet"]["channelTitle"],
+        "viewCount": response["statistics"]["viewCount"],
+        "likeCount": response["statistics"]["likeCount"],
+        "commentCount": response["statistics"]["commentCount"]
+    }
+
+    return metadata
