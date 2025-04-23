@@ -75,7 +75,7 @@ def get_metadata(video_id: str) -> Dict[str, Any]:
     return metadata
 
 # function getting and saving comments and metadata
-def save_data(video_ids: list[str], path: str = 'data/youtube_data.json') -> None:
+def save_data(video_ids: list[str], path: str = 'youtube_data.json') -> None:
     '''
     Get and save the data for each video
     :param video_ids: a list of video IDs as strings
@@ -97,7 +97,7 @@ def save_data(video_ids: list[str], path: str = 'data/youtube_data.json') -> Non
             comments = get_comments(video)
             metadata = get_metadata(video)
             # read the user answer: is this video a clickbait
-            info = input(f"Is \"{metadata['title']} a clickbait? (yes/no): ").strip().lower()
+            info = input(f"Is \"{metadata['title']}\" a clickbait? (yes/no): ").strip().lower()
             is_clickbait = info.startswith("y")
 
             # compose and fill in json structure
@@ -117,6 +117,5 @@ def save_data(video_ids: list[str], path: str = 'data/youtube_data.json') -> Non
         f.close()
 
         print(f"Saved {len(dataset)} videos to {path}")
-
 
 
