@@ -2,8 +2,8 @@ import os
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from typing import Any, Dict
-
-from urllib3 import request
+import json
+from pathlib import Path
 
 # load environment variables
 load_dotenv()
@@ -73,3 +73,50 @@ def get_metadata(video_id: str) -> Dict[str, Any]:
     }
 
     return metadata
+
+# function getting and saving comments and metadata
+def save_data(video_ids: list[str], path: str = 'data/youtube_data.json') -> None:
+    '''
+    Get and save the data for each video
+    :param video_ids: a list of video IDs as strings
+    :param path: a path to save the file
+    :return: JSON
+    '''
+
+    directory = os.path.dirname(path)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
+
+    # open file for writing
+    with open(path, 'w', encoding='utf-8') as f:
+        #create an empty list to store data
+        dataset = []
+        for video in video_ids:
+            print(f"Processing video {video}")
+            # call functions to get the data
+            comments = get_comments(video)
+            metadata = get_metadata(video)
+            # read the user answer: is this video a clickbait
+            info = input(f"Is \"{metadata['title']} a clickbait? (yes/no): ").strip().lower()
+            is_clickbait = info.startswith("y")
+
+            # compose and fill in json structure
+            json_entry = {
+                "video_id": video,
+                "clickbait": is_clickbait,
+                "metadata": metadata,
+                "comments": comments
+            }
+            # add to the dataset
+            dataset.append(json_entry)
+
+        # save the file
+        json.dump(dataset, f, indent=2, ensure_ascii=False)
+
+        #close the file
+        f.close()
+
+        print(f"Saved {len(dataset)} videos to {path}")
+
+
+
