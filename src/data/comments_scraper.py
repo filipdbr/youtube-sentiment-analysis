@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from googleapiclient.discovery import build
 from typing import Any, Dict
 import json
-from pathlib import Path
 
 # load environment variables
 load_dotenv()
@@ -83,11 +82,12 @@ def save_data(video_ids: list[str], path: str = 'youtube_data.json') -> None:
     :return: JSON
     '''
 
+    # ensure the directory exists
     directory = os.path.dirname(path)
     if directory:
         os.makedirs(directory, exist_ok=True)
 
-    # open file for writing
+    # open output file for writing (overwrite existing data)
     with open(path, 'w', encoding='utf-8') as f:
         #create an empty list to store data
         dataset = []
@@ -96,11 +96,12 @@ def save_data(video_ids: list[str], path: str = 'youtube_data.json') -> None:
             # call functions to get the data
             comments = get_comments(video)
             metadata = get_metadata(video)
-            # read the user answer: is this video a clickbait
+
+            # prompt user to label the video as clickbait or not
             info = input(f"Is \"{metadata['title']}\" a clickbait? (yes/no): ").strip().lower()
             is_clickbait = info.startswith("y")
 
-            # compose and fill in json structure
+            # build a record
             json_entry = {
                 "video_id": video,
                 "clickbait": is_clickbait,
