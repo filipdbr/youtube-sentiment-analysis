@@ -4,6 +4,19 @@
 
 I decided to analyse YouTube comments to understand how **clickbait titles influence viewer sentiment**. The app uses the YouTube Data API to fetch comments, applies text preprocessing and sentiment classification, and exposes predictions via a REST API.
 
+## Video Selection & Dataset Overview
+
+- **Total videos:** 20 (manually selected)  
+  - **Clickbait:** 10  
+  - **Non-clickbait:** 10  
+- **View count range:** from ~100 000 up to several million views, to capture both niche and highly popular content  
+- **Topic:** “how to lose weight” and “how to get abs” — an area rich in both clickbait and non-clickbait, informative titles  
+- **Audience:** content aimed at both men and women interested in fitness and weight loss  
+- **IDs file:** All video IDs are listed in [`videos_ids.txt`](./videos_ids.txt)  
+- **Raw Dataset** in [`youtube_data.json`](./data/raw/youtube_data.json)
+
+This balanced, topic-focused sample gives me a clear, controlled basis for comparing how title style (clickbait vs. non-clickbait) correlates with viewer sentiment.
+
 ## Features 
 
 ### Data Collection
@@ -12,7 +25,6 @@ I decided to analyse YouTube comments to understand how **clickbait titles influ
   - Saves everything into a structured JSON file 
 
 ### Upcoming features
-- Fetches comments from YouTube videos
 - Cleans and prepares text data for analysis
 - Trains a sentiment analysis model using machine learning
 - Compares sentiment distributions between clickbait and non-clickbait videos
