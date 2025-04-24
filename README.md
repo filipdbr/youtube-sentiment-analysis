@@ -6,7 +6,13 @@ I decided to analyse YouTube comments to understand how **clickbait titles influ
 
 ## Features 
 
-- Fetches comments from YouTube videos (done)
+### Data Collection
+  - Fetches top‐level comments for any video ID via the YouTube Data API  
+  - Retrieves metadata (title, description, channel, view/like/comment counts)
+  - Saves everything into a structured JSON file 
+
+### Upcoming features
+- Fetches comments from YouTube videos
 - Cleans and prepares text data for analysis
 - Trains a sentiment analysis model using machine learning
 - Compares sentiment distributions between clickbait and non-clickbait videos
