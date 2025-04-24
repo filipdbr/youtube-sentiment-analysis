@@ -3,3 +3,6 @@ google-api-python-client
 
 # Load environment variables
 dotenv
+
+# tqdm for a loading bar
+tqdm
