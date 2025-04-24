@@ -4,6 +4,8 @@ from googleapiclient.discovery import build
 from typing import Any, Dict
 import json
 
+## todo: add progress bar for fetching comments
+
 # load environment variables
 load_dotenv()
 api_key = os.getenv("api_key")
@@ -128,3 +130,7 @@ def load_videos(path: str,) -> list[str]:
     '''
     with open(path, 'r', encoding='utf-8') as f:
         return [record.strip() for record in f if record.strip()]
+
+if __name__ == "__main__":
+    video_ids = load_videos("videos_ids.txt")    ## return the list of video IDs
+    save_data(video_ids, "data/raw/youtube_data.json")
