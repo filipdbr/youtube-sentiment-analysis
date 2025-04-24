@@ -120,3 +120,11 @@ def save_data(video_ids: list[str], path: str = 'youtube_data.json') -> None:
         print(f"Saved {len(dataset)} videos to {path}")
 
 
+def load_videos(path: str,) -> list[str]:
+    '''
+    The function load videos from the file
+    :param path: path to the file containing the videos (line by line)
+    :return: list of video IDs as strings
+    '''
+    with open(path, 'r', encoding='utf-8') as f:
+        return [record.strip() for record in f if record.strip()]
