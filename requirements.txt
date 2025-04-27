@@ -6,3 +6,6 @@ dotenv
 
 # tqdm for a loading bar
 tqdm
+
+# for data loading (dataframes) and manipulation
+pandas
