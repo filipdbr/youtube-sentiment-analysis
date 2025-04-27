@@ -24,8 +24,14 @@ This balanced, topic-focused sample gives me a clear, controlled basis for compa
   - Retrieves metadata (title, description, channel, view/like/comment counts)
   - Saves everything into a structured JSON file 
 
+### Data Preparation
+  - Reads the raw JSON into a pandas DataFrame
+  - Splits each comment into its own row (one comment per row, carrying video metadata)
+  - Renames the comment column to text for clarity 
+  - Provides a quick check of clickbait vs. non-clickbait distribution
+
 ### Upcoming features
-- Cleans and prepares text data for analysis
+- Cleans data for analysis
 - Trains a sentiment analysis model using machine learning
 - Compares sentiment distributions between clickbait and non-clickbait videos
 - Exposes a FastAPI endpoint for real-time predictions
@@ -47,6 +53,10 @@ This balanced, topic-focused sample gives me a clear, controlled basis for compa
 ## Setup
 
 1. Clone the repository
+```shell
+git clone https://github.com/yourusername/youtube-sentiment-analysis.git
+cd youtube-sentiment-analysis
+```
 2. Install dependencies:
 ```shell
 pip install -r requirements.txt
@@ -56,9 +66,23 @@ Make a copy of the example file:
   ```bash
   cp .env.example .env
   ```
-- Open `.env` and replace the placeholder with your actual [YouTube API key](https://console.cloud.google.com/).
+Open `.env` and replace the placeholder with your actual [YouTube API key](https://console.cloud.google.com/).
 
 You can view the example file here: [.env.example](./.env.example)
 
+## Quickstart
+1. Collect raw data:
+You can add videos of your choice by updating the content of [`videos_ids.txt`](./videos_ids.txt).
+2. Run the comments scraper
+```shell
+python src/data/comments_scraper.py
+```
+3. Prepare data by running: 
+```shell
+python src/data_preparation.py
+```
+Output:
+* Raw JSON: [`youtube_data.json`](./data/raw/youtube_data.json)
+* Prepared DataFrame: displayed in your console
 
 
