@@ -9,3 +9,6 @@ tqdm
 
 # for data loading (dataframes) and manipulation
 pandas
+
+# natural language toolkit for text preprocessing: tokenisation, stopword removal and for reducing words to base forms
+nltk
